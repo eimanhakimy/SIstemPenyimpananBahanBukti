@@ -49,6 +49,37 @@
     <!-- Custom scripts for all pages-->
     <script src="<?= base_url('assets/');?>js/sb-admin-2.min.js"></script>
 
+    <script>
+    // merubah nama file yang ada di kolom browse file (tricky)
+
+    // jquery mencari custome-file-input ketika kita ubah isinya
+    // ambil nama filenya lalu nama filenya simpan kedalam isi dari inputnya
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+
+
+
+    // ajax untuk meng set role menu pada check box
+    $('.form-check-input').on('click', function() {
+        const menuId = $(this).data('menu');
+        const roleId = $(this).data('role');
+
+        $.ajax({
+            url: "<?= base_url('admin/changeaccess') ?>",
+            type: 'post',
+            data: {
+                menuId: menuId,
+                roleId: roleId
+            },
+            success: function() {
+                document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
+            }
+        })
+    })
+</script>
+
 </body>
 
 </html>
