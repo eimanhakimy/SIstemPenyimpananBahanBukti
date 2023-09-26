@@ -23,14 +23,25 @@ class Admin extends CI_Controller
 
     }
 
-   // Controller method to load the department addition page
-   public function add_department_page() {
-    $data['title'] = 'Add Department';
-    $data['page_content'] = 'admin/add_department'; // Path to your specific content view
-    $this->load->view('common_layout', $data);
+    public function department() 
+    {
+        $data['title'] = 'Manage department';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email') ])->row_array();
 
-    
-}
+        $data['department'] = $this->db->get('department_menu')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/department', $data);
+        $this->load->view('templates/footer', $data);
+      /*   $this->load->view('templates/footer'); */
+
+        
+    }
+
+  
 
 
 

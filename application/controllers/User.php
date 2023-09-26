@@ -23,22 +23,54 @@ class User extends CI_Controller
 
     }
 
-   // Controller method to load the department addition page
-   public function add_department_page() {
-    $data['title'] = 'Add Department';
-    $data['page_content'] = 'user/add_department'; // Path to your specific content view
 
-    $this->load->view('templates/header', $data);
+    public function category() 
+    {
+        $data['title'] = 'Manage Category';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email') ])->row_array();
+
+        $data['category'] = $this->db->get('category_menu')->result_array();
+
+        $this->form_validation->set_rules('category', 'Category', 'required');
+       
+
+
+        if ($this->form_validation->run() == false) {
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
+        $this->load->view('user/category', $data);
         $this->load->view('templates/footer', $data);
+      /*   $this->load->view('templates/footer'); */
 
+        }else {
+            $this->db->insert('category_menu', ['category' => $this->input->post('category')]);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New menu added!</div>');
+            redirect('category');
+        }
 
-    
-}
+    }
 
+    public function rack() 
+    {
+        $data['title'] = 'Manage rack';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email') ])->row_array();
 
+        $data['rack'] = $this->db->get('rack_menu')->result_array();
 
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/rack', $data);
+        $this->load->view('templates/footer', $data);
+      /*   $this->load->view('templates/footer'); */
 
+        
+
+    }
+
+      
 
 }

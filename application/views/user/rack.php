@@ -7,27 +7,29 @@
 
 
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-6">
             <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newMenuModal">Add New Menu</a>
+            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newCategory">Add New Rack</a>
 
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Menu</th>
+                        <th scope="col">Rack ID</th>
+                        <th scope="col">Rack No</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i = 1; ?>
-                    <?php foreach ($menu as $m) : ?>
+                    <?php foreach ($rack as $rk) : ?>
                     <tr>
                         <th scope="row"><?= $i; ?></th>
-                        <td><?= $m['menu']; ?></td>
+                        <td><?= $rk['id']; ?></td>
+                        <td><?= $rk['rackNo']; ?></td>
                         <td>
                             <a href="" class="badge badge-success">Edit</a>
                             <a href="" class="badge badge-danger">Delete</a>
@@ -53,19 +55,19 @@
 <!-- Modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="newMenuModal" tabindex="-1" role="dialog" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="newCategoryLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newMenuModalLabel">Add New Menu</h5>
+                <h5 class="modal-title" id="newCategoryLabel">Add New Category</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('menu'); ?>" method="post">
+            <form action="<?= base_url('category'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="menu" name="menu" placeholder="Menu name">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Category Name">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -75,4 +77,4 @@
             </form>
         </div>
     </div>
-</div> 
+</div>  -->
