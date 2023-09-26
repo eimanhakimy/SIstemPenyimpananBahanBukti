@@ -12,7 +12,7 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newCategory">Add New Rack</a>
+            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newRack">Add New Rack</a>
 
             <table class="table table-hover">
                 <thead>
@@ -52,22 +52,21 @@
 </div>
 <!-- End of Main Content -->
 
-<!-- Modal -->
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="newCategoryLabel" aria-hidden="true">
+<!-- Modal for adding a new rack -->
+<div class="modal fade" id="newRack" tabindex="-1" role="dialog" aria-labelledby="newRackLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newCategoryLabel">Add New Category</h5>
+                <h5 class="modal-title" id="newRackLabel">Add New Rack</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('category'); ?>" method="post">
+            <form action="<?= base_url('user/rack'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Category Name">
+                        <!-- Name attribute should be "rackNo" -->
+                        <input type="text" class="form-control" id="rackNo" name="rackNo" placeholder="Rack Number">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -77,4 +76,4 @@
             </form>
         </div>
     </div>
-</div>  -->
+</div>

@@ -54,6 +54,11 @@
 
 <!-- Modal -->
 
+<!-- Your modal code remains the same -->
+
+<!-- Add the modal trigger button -->
+
+
 <!-- Modal -->
 <div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="newCategoryLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -64,10 +69,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('category'); ?>" method="post">
+            <!-- Form action should point to the controller method -->
+            <form action="<?= base_url('user/category'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Category Name">
+                        <!-- Name attribute should be "category" -->
+                        <input type="text" class="form-control" id="category" name="category" placeholder="Category Name">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -77,4 +84,4 @@
             </form>
         </div>
     </div>
-</div> 
+</div>
