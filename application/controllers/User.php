@@ -80,7 +80,7 @@ class User extends CI_Controller
     }
 
 
-    public function editCategory($id)
+    public function editCategory($id_category)
 {
     $data['title'] = 'Edit Kategori';
     $this->_rulesCategory();
@@ -89,7 +89,7 @@ class User extends CI_Controller
         $this->category();
     } else {
         $data = array(
-            'id' => $id,
+            'id' => $id_category,
             'category' => $this->input->post('category'),
             'description' => $this->input->post('description'),
         );
@@ -103,6 +103,29 @@ class User extends CI_Controller
         redirect('user/category');
     }
 }
+
+
+    public function deleteCategory($id_category) 
+    {
+        $where = array('id' => $id_category);
+
+        $this->User_model->delete_dataCategory($where, 'category_menu');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Kategori Berjaya Dihapus!</h4>
+            <p>Kategori berjaya dihapus dari database. Anda boleh lihat dalam table.</p>
+            <hr>
+            </div>');
+        redirect('user/category');
+    }
+
+    public function printCategory()
+    {
+      
+
+      $data['category'] = $this->User_model->getCategorydata('category_menu')->result();
+      $this->load->view('user/print_category', $data);
+
+    }
 
 
 

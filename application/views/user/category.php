@@ -14,6 +14,7 @@
           
            <!--  <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6> -->
             <a href="<?= base_url('category/addCategory') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Kategori</a>
+            <a href="<?= base_url('category/printCategory') ?>" class="btn btn-info btn-sm"><i class="fas fa-print"></i> Cetak</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -37,7 +38,7 @@
                                 <td><?= $ct->description?></td>
                                 <td>
                                     <button data-toggle="modal" data-target="#edit<?= $ct->id ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                                    <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                    <a href="<?= base_url('category/delete/' . $ct->id) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Adakah Anda mahu buang data ini ?')"><i class="fas fa-trash"></i></a>
                                     <a href="" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
 
 

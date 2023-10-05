@@ -57,6 +57,10 @@ $route['department/add'] = 'department/add';
 $route['category/addCategory'] = 'user/addCategory';
 $route['category/addCategory_action'] = 'user/addCategory_action';
 $route['category/edit/(:any)'] = 'user/editCategory/$1';
+$route['category/delete/(:any)'] = 'user/deleteCategory/$1';
+$route['category/printCategory'] = 'user/printCategory';
+
+
 
 
 

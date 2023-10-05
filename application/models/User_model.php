@@ -20,6 +20,12 @@ class User_model extends CI_Model {
         $this->db->update($table, $data);
     }
 
+    public function delete_dataCategory($where, $table)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
 }
 
 
