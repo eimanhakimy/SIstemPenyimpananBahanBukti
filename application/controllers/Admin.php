@@ -32,6 +32,12 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email') ])->row_array();
 
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('name', 'Department' , 'required');
+
+        if($this->form_)
+
         $data['department'] = $this->db->get('department_menu')->result_array();
 
         $this->load->view('templates/header', $data);
@@ -39,7 +45,7 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/department', $data);
         $this->load->view('templates/footer', $data);
-      /*   $this->load->view('templates/footer'); */
+      
 
         
     }

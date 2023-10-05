@@ -12,7 +12,7 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newCategory">Add New Department</a>
+            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newDepartment">Add New Department</a>
 
             <table class="table table-hover">
                 <thead>
@@ -51,21 +51,20 @@
 <!-- End of Main Content -->
 
 <!-- Modal -->
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="newCategoryLabel" aria-hidden="true">
+<div class="modal fade" id="newDepartment" tabindex="-1" role="dialog" aria-labelledby="newDepartmentLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newCategoryLabel">Add New Category</h5>
+                <h5 class="modal-title" id="newDepartmentLabel">Add New Department</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('category'); ?>" method="post">
+            <form action="<?= base_url('user/department'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Category Name">
+                        <!-- Name attribute should be "name" -->
+                        <input type="text" class="form-control" id="department" name="department" placeholder="Department Name">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -75,4 +74,4 @@
             </form>
         </div>
     </div>
-</div>  -->
+</div>

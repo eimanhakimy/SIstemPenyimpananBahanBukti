@@ -1,4 +1,5 @@
-// Call the dataTables jQuery plugin
-$(document).ready(function() {
-  $('#dataTable').DataTable();
+console.log('Script is running');
+jQuery(document).ready(function($) {
+    console.log('Document is ready');
+    $('#dataTable').DataTable();
 });

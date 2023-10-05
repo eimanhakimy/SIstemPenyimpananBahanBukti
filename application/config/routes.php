@@ -54,5 +54,14 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['department/add'] = 'department/add';
+$route['category/addCategory'] = 'user/addCategory';
+$route['category/addCategory_action'] = 'user/addCategory_action';
+$route['category/edit/(:any)'] = 'user/editCategory/$1';
+
+
+
+
+
+
 
 
