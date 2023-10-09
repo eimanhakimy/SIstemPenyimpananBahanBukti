@@ -44,7 +44,6 @@
 
                                 </td>
                             </tr>
-                            <!-- Add more table rows here as needed -->
                         </tbody>
                     <?php endforeach ?>
                 </table>
@@ -111,6 +110,10 @@
 
 <!-- Custom styles for this page -->
 <link href="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet'); ?>">
+
+<!-- excel font --->
+<link href="<?= base_url('assets/vendor/fontawesome-free/css/all.min.css'); ?>" rel="stylesheet" type="text/css">
+
 
 
 <!-- End of Main Content -->

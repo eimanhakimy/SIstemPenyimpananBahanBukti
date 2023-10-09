@@ -5,6 +5,12 @@ class Admin extends CI_Controller
 
 {
 
+    public function __construct()
+    {
+      parent::__construct();
+      $this->load->model('Admin_model');
+    }
+
     
 
 
@@ -26,28 +32,18 @@ class Admin extends CI_Controller
 
     }
 
-    public function department() 
+    public function department()
     {
-        $data['title'] = 'Manage department';
-        $data['user'] = $this->db->get_where('user', ['email' =>
-        $this->session->userdata('email') ])->row_array();
+      $data['title'] = 'Urus jabatan';
+      $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+      $data['department'] = $this->Admin_model->getDepartmentData('department_menu')->result();
 
-        $this->load->library('form_validation');
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('admin/department', $data);
+      $this->load->view('templates/footer', $data);
 
-        $this->form_validation->set_rules('name', 'Department' , 'required');
-
-        if($this->form_)
-
-        $data['department'] = $this->db->get('department_menu')->result_array();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/department', $data);
-        $this->load->view('templates/footer', $data);
-      
-
-        
     }
 
     public function role() 

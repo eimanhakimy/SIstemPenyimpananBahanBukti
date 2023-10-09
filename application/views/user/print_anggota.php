@@ -75,37 +75,47 @@
     <div class="header">
         <img src="assets\img\Polis-logo.png" alt="Company Logo" class="logo">
         <h1 class="official">POLIS DIRAJA MALAYSIA</h1>
-        <h2 class="official">Senarai Kategori</h2>
+        <h2 class="official">Senarai Anggota</h2>
     </div>
     <div class="invoice-info">
         <div class="info">
             <h2>Print Date: <?= date('Y-m-d') ?></h2>
-            <h2>Time: <?= date('H:i:s') ?></h2>
+            <h2>Due Time: <?= date('H:i:s') ?></h2>
         </div>
     </div>
     <table>
         <thead>
-        <tr>
-            <th>No.</th>
-            <th>Nama Kategori</th>
-            <th>Description</th>
-        </tr>
+            <tr>
+                <th>No.</th>
+                <th>Nama Anggota</th>
+                <th>No. Badan</th>
+                <th>Email</th>
+                <th>No. Telefon</th>
+                <th>Alamat</th>
+                <th>Jabatan</th>
+            </tr>
         </thead>
+        <tbody>
             <?php $no=1;
-            foreach($category as $ct) : ?>
-            <tbody>
-        <tr>
-            <td><?= $no++?></td>
-            <td><?= $ct->category?></td>
-            <td><?= $ct->description?></td>
-        </tr>
-        </tbody>
+            foreach($anggota as $ag) : ?>
+                <tr>
+                    <td><?= $no++?></td>
+                    <td><?= $ag->anggota_name?></td>
+                    <td><?= $ag->no_body?></td>
+                    <td><?= $ag->anggota_email?></td>
+                    <td><?= $ag->anggota_phoneNumber?></td>
+                    <td><?= $ag->anggota_address?></td>
+                    <td><?= $ag->department_name?></td>
+                </tr>
             <?php endforeach ?>
         </tbody>
     </table>
     <div class="signature-container">
         <div class="signature-text">Tandatangan</div>
         <div class="signature-line"></div>
+    </div>
+    <div class="footer">
+        Generated on: <?= date('Y-m-d H:i:s') ?>
     </div>
     <script type="text/javascript">
         window.print();

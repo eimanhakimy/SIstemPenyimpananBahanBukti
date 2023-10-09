@@ -13,8 +13,8 @@
         <div class="card-header py-3">
           
            <!--  <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6> -->
-            <a href="<?= base_url('rack/addRack') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Kategori</a>
-            <a href="<?= base_url('rack/printRak') ?>" class="btn btn-info btn-sm"><i class="fas fa-print"></i> Cetak</a>
+            <a href="<?= base_url('bahanbukti/addBahanBukti') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Daftar Masuk Bahan </a>
+            <a href="<?= base_url('bahanbukti/printBahanBukti') ?>" class="btn btn-info btn-sm"><i class="fas fa-print"></i> Cetak</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -22,21 +22,35 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>ID Rak</th>
-                            <th>No. Rak</th>
+                            <th>No. Kes</th>
+                            <th>Nama Bahan Bukti</th>
+                            <th>Kuantiti</th>
+                            <th>Berat (KG)</th>
+                            <th>Tarikh Daftar</th>
+                            <th>Masa Masuk</th>
+                            <th>Masa Keluar</th>
+                            <th>Nama Anggota</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <?php $no=1;
-                        foreach($rack as $rk) : ?>
+                        foreach($evidences as $evi) : ?>
                         <tbody>
                             <tr>
                                 <td><?= $no++?></td>
-                                <td><?= $rk->id?></td>
-                                <td><?= $rk->rack?></td>
+                                <td><?= $evi->case_no?></td>
+                                <td><?= $evi->item_name?></td>
+                                <td><?= $evi->item_quantity?></td>
+                                <td><?= $evi->item_weight?></td>
+                                <td><?= $evi->date?></td>
+                                <td><?= $evi->time_check_in?></td>
+                                <td><?= $evi->time_check_out?></td>
+                                <td><?= $evi->anggota_name?></td>
+                                <td><?= $evi->status_message?></td>
                                 <td>
-                                    <button data-toggle="modal" data-target="#edit<?= $rk->id ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                                    <a href="<?= base_url('rack/delete/' . $rk->id) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Adakah Anda mahu buang data ini ?')"><i class="fas fa-trash"></i></a>
+                                    <button data-toggle="modal" data-target="#edit<?= $evi->id ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+                                    <a href="<?= base_url('bahanbukti/delete/' . $evi->id) ?>" class="btn btn-danger btn-sm" onclick="return confirm('Adakah Anda mahu buang data ini ?')"><i class="fas fa-trash"></i></a>
                                     <a href="" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
 
 
@@ -54,37 +68,8 @@
 
 
 
-<!-- modal untuk edit Rak --->
-<?php foreach($rack as $rk) : ?>
-<div class="modal fade" id="edit<?= $rk->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Rak</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-         <!-- form tambah Rak -->
-            <form action="<?= base_url('rack/edit/' . $rk->id) ?>" method="post"> 
-                <div class="form-group">
-                    <label>No Rak</label>
-                    <input type="text" name="rack" class="form-control" value="<?= $rk->rack ?>">
-                    <?= form_error('rack', '<div class="text-small text-danger">','</div>'); ?>
-                </div>
-                <div class="modal-footer">         
-                        <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Kemaskini</button>
-                        <button type="reset" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Set Semula</button>
-                        <a href="<?= base_url('user/rack') ?>" class="btn btn-dark btn-sm"> Tutup</a>
-                </div>
-            </form>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- modal untuk edit --->
 
-<?php endforeach ?>
 <!-- end ofmodel edit -->
 <!-- /.container-fluid -->
 

@@ -26,6 +26,25 @@ class User_model extends CI_Model {
         $this->db->delete($table);
     }
 
+    public function getAnggotaData($table)
+    {
+        return $this->db->get($table);
+    }
+
+    public function getBahanBuktiData($table)
+    {
+        return $this->db->get($table);
+    }
+
+    public function insert_dataBahanBukti($data, $table)
+    {
+        $this->db->insert($table, $data);
+
+    }
+
+
+   
+
 }
 
 

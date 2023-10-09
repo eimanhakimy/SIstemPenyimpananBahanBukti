@@ -61,7 +61,13 @@ $route['category/delete/(:any)'] = 'user/deleteCategory/$1';
 $route['category/printCategory'] = 'user/printCategory';
 
 
+//anggota 
 
+$route['anggota/printAnggota'] = 'user/printAnggota';
+
+//bahan bukti
+
+$route['bahanbukti/addBahanBukti'] = 'user/addBahanBukti';
 
 
 
