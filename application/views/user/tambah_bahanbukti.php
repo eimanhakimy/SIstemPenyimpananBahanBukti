@@ -44,22 +44,23 @@
         <label>Masa Check-In</label>
         <input type="text" name="time_check_in" class="form-control" value="<?= date('H:i:s'); ?>" readonly>
     </div>
-    <div class="form-group">
-        <label>Status</label>
-        <select name="status" class="form-control">
-            <?php foreach ($status_messages as $status_message) : ?>
-                <option value="<?= $status_message->status ?>"><?= $status_message->status_message ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-    <div class="form-group">
-        <label>Nama Anggota</label>
-        <select name="anggota_name" class="form-control">
-            <?php foreach ($anggota_names as $anggota_name) : ?>
-                <option value="<?= $anggota_name->anggota_name ?>"><?= $anggota_name->anggota_name ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+    <div class="form-group" id="status-dropdown">
+    <label>Status</label>
+    <select name="status" class="form-control">
+        <?php foreach ($status_messages as $status_message) : ?>
+            <option value="<?= $status_message->status_message ?>"><?= $status_message->status_message ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>
+<div class="form-group" id="anggota-dropdown">
+    <label>Nama Anggota</label>
+    <select name="anggota_name" class="form-control">
+        <?php foreach ($anggota_name as $anggota_name) : ?>
+            <option value="<?= $anggota_name->anggota_name ?>"><?= $anggota_name->anggota_name ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
     <div class="form-group">
 
     <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Tambah</button>
@@ -87,6 +88,11 @@
 
 <!-- Custom styles for this page -->
 <link href="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet'); ?>">
+
+<!-- custom form -->
+<link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/custom.css'); ?>">
+
+
 
 
 <!-- End of Main Content -->

@@ -206,6 +206,11 @@ class User extends CI_Controller
         $data['title'] = 'Tambah Bahan Bukti';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $data['status_messages'] = $this->User_model->get_status_messages();
+
+        $data['anggota_name'] = $this->User_model->get_anggota_name();
+
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -218,25 +223,23 @@ class User extends CI_Controller
         $this->_rulesBahanBukti();
 
         if ($this->form_validation->run() == FALSE) {
-          $this->addBahanBukti();
+            $this->addBahanBukti();
         } else {
-          $data = array(
-            'item_name' => $this->input->post('item_name'),
-            'case_no' => $this->input->post('case_no'),
-            'item_quantity' => $this->input->post('item_quantity'),
-            'item_weight' => $this->input->post('item_weight')
+            $data = array(
+                'item_name' => $this->input->post('item_name'),
+                'case_no' => $this->input->post('case_no'),
+                'item_quantity' => $this->input->post('item_quantity'),
+                'item_weight' => $this->input->post('item_weight')
+            );
 
-          );
-
-          $this->User_model->insert_dataBahanBukti($data,'evidences');
-          $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
-          <h4 class="alert-heading">Kategori Baru Berjaya Ditambah!</h4>
-          <p>Kategori baru berjaya ditambah ke dalam sistem. Anda boleh lihat dalam table.</p>
-          <hr>
-        </div>');
-          redirect('user/bahanbukti');
+            $this->User_model->insert_dataBahanBukti($data, 'evidences');
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Kategori Baru Berjaya Ditambah!</h4>
+            <p>Kategori baru berjaya ditambah ke dalam sistem. Anda boleh lihat dalam table.</p>
+            <hr>
+            </div>');
+            redirect('user/bahanbukti');
         }
-      
     }
 
     public function anggota()

@@ -26,6 +26,33 @@ class User_model extends CI_Model {
         $this->db->delete($table);
     }
 
+    public function get_status_messages()
+{
+    // Assuming you have a database connection already configured
+    $query = $this->db->select('status_message')->get('status_menu');
+
+    // Check if the query was successful
+    if ($query->num_rows() > 0) {
+        return $query->result();
+    } else {
+        return array(); // Return an empty array if no results found
+    }
+}
+
+public function get_anggota_name()
+{
+    // Assuming you have a database connection already configured
+    $query = $this->db->select('anggota_name')->get('anggota_menu');
+
+    // Check if the query was successful
+    if ($query->num_rows() > 0) {
+        return $query->result();
+    } else {
+        return array(); // Return an empty array if no results found
+    }
+}
+
+
     public function getAnggotaData($table)
     {
         return $this->db->get($table);
