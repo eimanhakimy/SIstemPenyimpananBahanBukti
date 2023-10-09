@@ -14,7 +14,7 @@
           
            <!--  <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6> -->
             <a href="<?= base_url('rack/addRack') ?>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Tambah Kategori</a>
-            <a href="<?= base_url('rack/printRak') ?>" class="btn btn-info btn-sm"><i class="fas fa-print"></i> Cetak</a>
+            <a href="<?= base_url('rack/printRack') ?>" class="btn btn-info btn-sm"><i class="fas fa-print"></i> Cetak</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -70,7 +70,7 @@
             <form action="<?= base_url('rack/edit/' . $rk->id) ?>" method="post"> 
                 <div class="form-group">
                     <label>No Rak</label>
-                    <input type="text" name="rack" class="form-control" value="<?= $rk->rack ?>">
+                    <input type="number" step="1" name="rack" class="form-control" value="<?= $rk->rack ?>">
                     <?= form_error('rack', '<div class="text-small text-danger">','</div>'); ?>
                 </div>
                 <div class="modal-footer">         

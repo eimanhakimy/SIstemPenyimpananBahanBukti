@@ -69,6 +69,14 @@ $route['anggota/printAnggota'] = 'user/printAnggota';
 
 $route['bahanbukti/addBahanBukti'] = 'user/addBahanBukti';
 
+//rack
+
+$route['rack/addRack'] = 'user/addRack';
+$route['rack/addRack_action'] = 'user/addRack_action';
+$route['rack/edit/(:any)'] = 'user/editRack/$1';
+$route['rack/delete/(:any)'] = 'user/deleteRack/$1';
+$route['rack/printRack'] = 'user/printRack';
+
 
 
 

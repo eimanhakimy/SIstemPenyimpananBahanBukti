@@ -3,6 +3,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User_model extends CI_Model {
 
+
+    // category
     public function getCategorydata($table)
     {
         return $this->db->get($table);
@@ -39,6 +41,8 @@ class User_model extends CI_Model {
     }
 }
 
+// anggota
+
 public function get_anggota_name()
 {
     // Assuming you have a database connection already configured
@@ -58,6 +62,8 @@ public function get_anggota_name()
         return $this->db->get($table);
     }
 
+    //bahan bukti
+
     public function getBahanBuktiData($table)
     {
         return $this->db->get($table);
@@ -68,6 +74,31 @@ public function get_anggota_name()
         $this->db->insert($table, $data);
 
     }
+
+    //Rack
+    public function insert_dataRack($data, $table)
+    {
+        $this->db->insert($table, $data);
+
+    }
+
+    public function getRackdata($table)
+    {
+        return $this->db->get($table);
+    }
+
+    public function update_dataRack($data, $table)
+    {
+        $this->db->where('id',$data['id']);
+        $this->db->update($table, $data);
+    }
+
+    public function delete_dataRack($where, $table)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
 
 
    

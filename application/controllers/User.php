@@ -146,7 +146,7 @@ class User extends CI_Controller
     {
       $data['title'] = 'Urus Rak';
       $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-      $data['rack'] = $this->User_model->getCategorydata('rack_menu')->result();
+      $data['rack'] = $this->User_model->getRackdata('rack_menu')->result();
 
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
@@ -158,7 +158,7 @@ class User extends CI_Controller
 
     public function _rulesRack ()
     {
-      $this->form_validation->set_rules('rackNo', 'No Rak', 'required', array(
+      $this->form_validation->set_rules('rack', 'No Rak', 'required', array(
         'required' => '%s Wajib diisi !!'
       ));
       
@@ -172,8 +172,74 @@ class User extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('user/tambah_rak'); // Load the view
+        $this->load->view('user/tambah_rack'); // Load the view
         $this->load->view('templates/footer', $data);
+    }
+
+    public function addRack_action()
+    {
+        $this->_rulesRack();
+
+        if ($this->form_validation->run() == FALSE) {
+          $this->addRack();
+        } else {
+          $data = array(
+            'rack' => $this->input->post('rack'),
+
+
+          );
+
+          $this->User_model->insert_dataRack($data,'rack_menu');
+          $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">Rak Baru Berjaya Ditambah!</h4>
+          <p>Rak baru berjaya ditambah ke dalam sistem. Anda boleh lihat dalam table.</p>
+          <hr>
+        </div>');
+          redirect('user/rack');
+        }
+      
+    }
+
+    public function editRack($id_rack)
+{
+    $data['title'] = 'Kemaskini Rak';
+    $this->_rulesRack();
+      
+    if ($this->form_validation->run() == FALSE) {
+        $this->rack();
+    } else {
+        $data = array(
+            'id' => $id_rack,
+            'rack' => $this->input->post('rack'),
+        );
+
+        $this->User_model->update_dataRack($data, 'rack_menu');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Rak Berjaya Dikemaskini!</h4>
+            <p>Rak berjaya diubah ke dalam sistem. Anda boleh lihat dalam table.</p>
+            <hr>
+            </div>');
+        redirect('user/rack');
+    }
+}
+
+    public function deleteRack($id_rack) 
+    {
+        $where = array('id' => $id_rack);
+
+        $this->User_model->delete_dataRack($where, 'rack_menu');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Rak Berjaya Dihapus!</h4>
+            <p>Rak berjaya dihapus dari database. Anda boleh lihat dalam table.</p>
+            <hr>
+            </div>');
+        redirect('user/rack');
+    }
+
+    public function printRack()
+    {
+      $data['rack'] = $this->User_model->getRackdata('rack_menu')->result();
+      $this->load->view('user/print_rack', $data);
     }
 
 
