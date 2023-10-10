@@ -12,7 +12,7 @@
 <form action="<?= base_url('bahanbukti/addBahanBukti_action') ?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Nama Barang Kes</label>
-        <input type="text" name="bahanbukti" class="form-control">
+        <input type="text" name="item_name" class="form-control">
         <?= form_error('item_name', '<div class="text-small text-danger">', '</div>'); ?>
     </div>
     <div class="form-group">
@@ -44,6 +44,15 @@
         <label>Masa Check-In</label>
         <input type="text" name="time_check_in" class="form-control" value="<?= date('H:i:s'); ?>" readonly>
     </div>
+
+    <div class="form-group" id="anggota-dropdown">
+    <label>Nama Anggota</label>
+    <select name="anggota_name" class="form-control">
+        <?php foreach ($anggota_name as $anggota_name) : ?>
+            <option value="<?= $anggota_name->anggota_name ?>"><?= $anggota_name->anggota_name ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>
     <div class="form-group" id="status-dropdown">
     <label>Status</label>
     <select name="status" class="form-control">
@@ -52,14 +61,7 @@
         <?php endforeach; ?>
     </select>
 </div>
-<div class="form-group" id="anggota-dropdown">
-    <label>Nama Anggota</label>
-    <select name="anggota_name" class="form-control">
-        <?php foreach ($anggota_name as $anggota_name) : ?>
-            <option value="<?= $anggota_name->anggota_name ?>"><?= $anggota_name->anggota_name ?></option>
-        <?php endforeach; ?>
-    </select>
-</div>
+
 
     <div class="form-group">
 

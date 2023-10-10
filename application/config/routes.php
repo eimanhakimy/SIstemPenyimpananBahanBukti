@@ -64,10 +64,14 @@ $route['category/printCategory'] = 'user/printCategory';
 //anggota 
 
 $route['anggota/printAnggota'] = 'user/printAnggota';
+$route['anggota/addAnggota'] = 'user/addAnggota';
+$route['anggota/addAnggota_action'] = 'user/addAnggota_action';
+$route['anggota/edit/(:any)'] = 'user/editAnggota/$1';
 
 //bahan bukti
 
 $route['bahanbukti/addBahanBukti'] = 'user/addBahanBukti';
+$route['bahanbukti/addBahanBukti_action'] = 'user/addBahanBukti_action';
 
 //rack
 

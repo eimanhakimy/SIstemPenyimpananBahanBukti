@@ -43,8 +43,8 @@ class User_model extends CI_Model {
 
 // anggota
 
-public function get_anggota_name()
-{
+    public function get_anggota_name()
+    {
     // Assuming you have a database connection already configured
     $query = $this->db->select('anggota_name')->get('anggota_menu');
 
@@ -54,12 +54,37 @@ public function get_anggota_name()
     } else {
         return array(); // Return an empty array if no results found
     }
-}
+    }
+
+    public function insert_dataAnggota($data, $table)
+    {
+        $this->db->insert($table, $data);
+
+    }
 
 
     public function getAnggotaData($table)
     {
         return $this->db->get($table);
+    }
+
+    public function get_department_name()
+    {
+        // Assuming you have a database connection already configured
+        $query = $this->db->select('department_name')->get('department_menu');
+    
+        // Check if the query was successful
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array(); // Return an empty array if no results found
+        }
+    }
+
+    public function update_dataAnggota($data, $table)
+    {
+        $this->db->where('anggota_id',$data['anggota_id']);
+        $this->db->update($table, $data);
     }
 
     //bahan bukti
@@ -98,6 +123,9 @@ public function get_anggota_name()
         $this->db->where($where);
         $this->db->delete($table);
     }
+
+
+   
 
 
 

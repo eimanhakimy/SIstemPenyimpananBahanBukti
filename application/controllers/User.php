@@ -295,7 +295,11 @@ class User extends CI_Controller
                 'item_name' => $this->input->post('item_name'),
                 'case_no' => $this->input->post('case_no'),
                 'item_quantity' => $this->input->post('item_quantity'),
-                'item_weight' => $this->input->post('item_weight')
+                'item_weight' => $this->input->post('item_weight'),
+                'date' => $this->input->post('date'),
+                'time_check_in' => $this->input->post('time_check_in'),
+                'anggota_name' => $this->input->post('anggota_name'),
+                'status_message' => $this->input->post('status_message'),
             );
 
             $this->User_model->insert_dataBahanBukti($data, 'evidences');
@@ -321,6 +325,100 @@ class User extends CI_Controller
       $this->load->view('templates/footer', $data);
 
     }
+
+    public function addAnggota()
+    {
+        $data['title'] = 'Tambah Anggota';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['department_name'] = $this->User_model->get_department_name();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/tambah_anggota'); // Load the view
+        $this->load->view('templates/footer', $data);
+    }
+
+    public function _rulesAnggota ()
+    {
+      $this->form_validation->set_rules('anggota_name', 'Nama Anggota', 'required', array(
+        'required' => '%s Wajib diisi !!'
+      ));
+      $this->form_validation->set_rules('no_body', 'Nombor Badan', 'required', array(
+        'required' => '%s Wajib diisi !!'
+      ));
+      $this->form_validation->set_rules('anggota_email', 'Emel Anggota', 'required', array(
+        'required' => '%s Wajib diisi !!'
+      ));
+      $this->form_validation->set_rules('anggota_phoneNumber', 'Nombor Telefon', 'required', array(
+        'required' => '%s Wajib diisi !!'
+      ));
+      $this->form_validation->set_rules('anggota_address', 'Alamat Anggota', 'required', array(
+        'required' => '%s Wajib diisi !!'
+      ));
+      $this->form_validation->set_rules('department_name', 'Jabatan', 'required', array(
+        'required' => '%s Wajib diisi !!'
+      ));
+    }
+
+    public function addAnggota_action()
+    {
+        $this->_rulesAnggota();
+
+        if ($this->form_validation->run() == FALSE) {
+          $this->addAnggota();
+        } else {
+          $data = array(
+            'anggota_name' => $this->input->post('anggota_name'),
+            'no_body' => $this->input->post('no_body'),
+            'anggota_email' => $this->input->post('anggota_email'),
+            'anggota_phoneNumber' => $this->input->post('anggota_phoneNumber'),
+            'anggota_address' => $this->input->post('anggota_address'),
+            'department_name' => $this->input->post('department_name'),
+
+
+          );
+
+          $this->User_model->insert_dataAnggota($data,'anggota_menu');
+          $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+          <h4 class="alert-heading">Rak Baru Berjaya Ditambah!</h4>
+          <p>Rak baru berjaya ditambah ke dalam sistem. Anda boleh lihat dalam table.</p>
+          <hr>
+        </div>');
+          redirect('user/anggota');
+        }
+      
+    }
+
+
+    public function editAnggota($id_anggota)
+{
+    $data['title'] = 'Kemaskini Anggota';
+    $this->_rulesAnggota();
+      
+    if ($this->form_validation->run() == FALSE) {
+        $this->anggota();
+    } else {
+        $data = array(
+            'anggota_id' => $id_anggota,
+            'anggota_name' => $this->input->post('anggota_name'),
+            'no_body' => $this->input->post('no_body'),
+            'anggota_email' => $this->input->post('anggota_email'),
+            'anggota_phoneNumber' => $this->input->post('anggota_phoneNumber'),
+            'anggota_address' => $this->input->post('anggota_address'),
+            'department_name' => $this->input->post('department_name'),
+        );
+
+        $this->User_model->update_dataAnggota($data, 'anggota_menu');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Anggota Berjaya Dikemaskini!</h4>
+            <p>Anggota berjaya diubah ke dalam sistem. Anda boleh lihat dalam table.</p>
+            <hr>
+            </div>');
+        redirect('user/anggota');
+    }
+}
 
     public function printAnggota()
     {
