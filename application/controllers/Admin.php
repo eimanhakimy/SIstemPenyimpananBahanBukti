@@ -238,8 +238,10 @@ class Admin extends CI_Controller
 
             $type == 'verify';
             $this->email->subject('Account Verification');
-            $this->email->message('Click this link to verify you account : <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
-
+            $this->email->message('Admin telah menciptakan akaun untuk anda untuk menggunakan "Sistem Penyimpanan Barang Kes". Dibawah ini disertakan dengan maklumat akaun anda.:<br><br>
+            Emel: ' . $this->input->post('email') . '<br>
+            Kata Laluan: ' . $this->input->post('password') . '<br><br>
+            Sebelum boleh menggunakan sistem ini, anda perlu mengaktifkan akaun anda terlebih dahulu: <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Aktifkan Akaun Anda</a>');
         if ($this->email->send()) {
             return true;
         } else {
