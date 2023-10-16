@@ -215,7 +215,7 @@ class Admin extends CI_Controller
 }
 
 
-
+    // send email for creating account
     private function _sendEmail($token, $type)
     {
         $config = Array(
