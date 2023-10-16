@@ -73,7 +73,8 @@
 </head>
 <body>
     <div class="header">
-        <img src="assets\img\Polis-logo.png" alt="Company Logo" class="logo">
+        <img src="../assets/img/polis.png" alt="Company Logo" class="logo">
+
         <h1 class="official">POLIS DIRAJA MALAYSIA</h1>
         <h2 class="official">Senarai Rak</h2>
     </div>

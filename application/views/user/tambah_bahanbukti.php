@@ -32,8 +32,8 @@
     </div>
     <div class="form-group">
         <label>Upload Gambar</label>
-        <input type="file" name="image" class="form-control-file">
-        <?= form_error('image', '<div class="text-small text-danger">', '</div>'); ?>
+        <input type="file" name="image_url" class="form-control-file">
+        <?= form_error('image_url', '<div class="text-small text-danger">', '</div>'); ?>
     </div>
     <div class="form-group">
         <label>Tarikh</label>

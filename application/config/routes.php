@@ -82,6 +82,11 @@ $route['rack/delete/(:any)'] = 'user/deleteRack/$1';
 $route['rack/printRack'] = 'user/printRack';
 
 
+//akaun staf
+$route['staff/addStaff'] = 'admin/addStaff';
+$route['staff/addStaff_action'] = 'admin/addStaff_action';
+
+
 
 
 
