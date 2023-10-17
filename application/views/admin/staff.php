@@ -80,9 +80,7 @@
 
 
 
-<!-- modal untuk edit --->
 
-<!-- end ofmodel edit -->
 <!-- /.container-fluid -->
 
 <!-- Bootstrap core JavaScript -->

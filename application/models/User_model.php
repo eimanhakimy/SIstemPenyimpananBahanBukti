@@ -100,6 +100,38 @@ class User_model extends CI_Model {
 
     }
 
+    public function get_rack()
+    {
+        // Assuming you have a database connection already configured
+        $query = $this->db->select('rack')->get('rack_menu');
+    
+        // Check if the query was successful
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array(); // Return an empty array if no results found
+        }
+    }
+
+    public function get_category()
+    {
+        // Assuming you have a database connection already configured
+        $query = $this->db->select('category')->get('category_menu');
+    
+        // Check if the query was successful
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return array(); // Return an empty array if no results found
+        }
+    }
+
+    public function delete_dataBahanBukti($where, $table)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
     //Rack
     public function insert_dataRack($data, $table)
     {

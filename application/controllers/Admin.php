@@ -147,12 +147,6 @@ class Admin extends CI_Controller
       $this->form_validation->set_rules('email', 'Email', 'required', array(
         'required' => '%s Wajib diisi !!'
       ));
-      $this->form_validation->set_rules('password', 'Kata Laluan', 'required', array(
-        'required' => '%s Wajib diisi !!'
-      ));
-      $this->form_validation->set_rules('role', 'Role', 'required', array(
-        'required' => '%s Wajib diisi !!'
-      ));
     }
 
     public function addStaff_action()
@@ -213,6 +207,26 @@ class Admin extends CI_Controller
         }
     }
 }
+
+public function printStaff()
+{
+  $data['staff'] = $this->Admin_model->getStaffData('user')->result();
+  $this->load->view('admin/print_staff', $data);
+}
+
+public function deleteStaff($id_staff) 
+    {
+        $where = array('id' => $id_staff);
+
+        $this->Admin_model->delete_dataStaff($where, 'user');
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Akaun Staf Berjaya Dihapus!</h4>
+            <p>Akaun Staf berjaya dihapus dari database. Anda boleh lihat dalam table.</p>
+            <hr>
+            </div>');
+        redirect('admin/staff');
+    }
+
 
 
     // send email for creating account

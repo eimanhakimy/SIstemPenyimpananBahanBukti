@@ -20,6 +20,14 @@
         <input type="text" name="case_no" class="form-control">
         <?= form_error('case_no', '<div class="text-small text-danger">', '</div>'); ?>
     </div>
+    <div class="form-group" id="category-dropdown">
+    <label>Kategori</label>
+    <select name="category" class="form-control">
+        <?php foreach ($category as $category) : ?>
+            <option value="<?= $category->category ?>"><?= $category->category ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>
     <div class="form-group">
         <label>Kuantiti Barang</label>
         <input type="number" name="item_quantity" class="form-control">
@@ -30,6 +38,14 @@
         <input type="number" step="0.01" name="item_weight" class="form-control">
         <?= form_error('item_weight', '<div class="text-small text-danger">', '</div>'); ?>
     </div>
+    <div class="form-group" id="rack-dropdown">
+    <label>Rak</label>
+    <select name="rack" class="form-control">
+        <?php foreach ($rack as $rack) : ?>
+            <option value="<?= $rack->rack ?>"><?= $rack->rack ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>
     <div class="form-group">
         <label>Upload Gambar</label>
         <input type="file" name="image_url" class="form-control-file">
@@ -55,7 +71,7 @@
 </div>
     <div class="form-group" id="status-dropdown">
     <label>Status</label>
-    <select name="status" class="form-control">
+    <select name="status_message" class="form-control">
         <?php foreach ($status_messages as $status_message) : ?>
             <option value="<?= $status_message->status_message ?>"><?= $status_message->status_message ?></option>
         <?php endforeach; ?>

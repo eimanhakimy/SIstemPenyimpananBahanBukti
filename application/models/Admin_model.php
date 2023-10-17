@@ -41,6 +41,20 @@ class Admin_model extends CI_Model{
             return null; // Return null if no user is found
         }
     }
+
+    public function delete_dataStaff($where, $table)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
+
+
+    
+
+    
+    
+
+
     
 
     

@@ -276,6 +276,10 @@ class User extends CI_Controller
 
         $data['anggota_name'] = $this->User_model->get_anggota_name();
 
+        $data['rack'] = $this->User_model->get_rack();
+
+        $data['category'] = $this->User_model->get_category();
+
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -285,32 +289,76 @@ class User extends CI_Controller
     }
 
     public function addBahanBukti_action()
-    {
-        $this->_rulesBahanBukti();
+{
+    $this->_rulesBahanBukti();
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->addBahanBukti();
+    if ($this->form_validation->run() == FALSE) {
+        $this->addBahanBukti();
+    } else {
+        // Handle the file upload
+        $config['upload_path'] = './assets/img/barangkes/'; // The path to store uploaded images
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['max_size'] = 2048; // 2MB, you can adjust this as needed
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('image_url')) {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+            // Handle the error here, such as showing a validation error or a flash message.
         } else {
-            $data = array(
-                'item_name' => $this->input->post('item_name'),
-                'case_no' => $this->input->post('case_no'),
-                'item_quantity' => $this->input->post('item_quantity'),
-                'item_weight' => $this->input->post('item_weight'),
-                'date' => $this->input->post('date'),
-                'time_check_in' => $this->input->post('time_check_in'),
-                'anggota_name' => $this->input->post('anggota_name'),
-                'status_message' => $this->input->post('status_message'),
-            );
-
-            $this->User_model->insert_dataBahanBukti($data, 'evidences');
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
-            <h4 class="alert-heading">Kategori Baru Berjaya Ditambah!</h4>
-            <p>Kategori baru berjaya ditambah ke dalam sistem. Anda boleh lihat dalam table.</p>
-            <hr>
-            </div>');
-            redirect('user/bahanbukti');
+            $upload_data = $this->upload->data();
+            $image_url = 'assets/img/barangkes/' . $upload_data['file_name'];
         }
+
+        // Prepare the data for insertion
+        $data = array(
+            'item_name' => $this->input->post('item_name'),
+            'image_url' => $image_url, // Add the image URL to the data
+            'case_no' => $this->input->post('case_no'),
+            'category' => $this->input->post('category'),
+            'rack' => $this->input->post('rack'),
+            'item_quantity' => $this->input->post('item_quantity'),
+            'item_weight' => $this->input->post('item_weight'),
+            'date' => $this->input->post('date'),
+            'time_check_in' => $this->input->post('time_check_in'),
+            'anggota_name' => $this->input->post('anggota_name'),
+            'status_message' => $this->input->post('status_message'),
+            // Add other fields here
+        );
+
+        // Insert the data into the 'evidences' table
+        $this->User_model->insert_dataBahanBukti($data, 'evidences');
+
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Item Baru Berjaya Ditambah!</h4>
+        <p>Item baru berjaya ditambah ke dalam sistem. Anda boleh lihat dalam table.</p>
+        <hr>
+        </div>');
+
+        redirect('user/bahanbukti');
     }
+}
+
+      public function printBahanBukti()
+      {
+        $data['evidences'] = $this->User_model->getBahanBuktiData('evidences')->result();
+        $this->load->view('user/print_bahanbukti', $data);
+      }
+
+      public function deleteBahanBukti($id_bahanbukti) 
+      {
+          $where = array('id' => $id_bahanbukti);
+  
+          $this->User_model->delete_dataBahanBukti($where, 'evidences');
+          $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">
+              <h4 class="alert-heading">Barang Kes Berjaya Dihapus!</h4>
+              <p>Barang Kes berjaya dihapus dari database. Anda boleh lihat dalam table.</p>
+              <hr>
+              </div>');
+          redirect('user/bahanbukti');
+      }
+
 
     public function anggota()
     {

@@ -24,9 +24,9 @@
                             <th>No.</th>
                             <th>No. Kes</th>
                             <th>Nama Bahan Bukti</th>
+                            <th>Kategori</th>
                             <th>Kuantiti</th>
                             <th>Berat (KG)</th>
-                            <th>Kategori</th>
                             <th>Tarikh Daftar</th>
                             <th>Masa Masuk</th>
                             <th>Masa Keluar</th>
@@ -43,9 +43,9 @@
                                 <td><?= $no++?></td>
                                 <td><?= $evi->case_no?></td>
                                 <td><?= $evi->item_name?></td>
+                                <td><?= $evi->category?></td>
                                 <td><?= $evi->item_quantity?></td>
                                 <td><?= $evi->item_weight?></td>
-                                <td><?= $evi->category?></td>
                                 <td><?= $evi->date?></td>
                                 <td><?= $evi->time_check_in?></td>
                                 <td><?= $evi->time_check_out?></td>
@@ -73,8 +73,64 @@
 
 
 <!-- modal untuk edit --->
-
-<!-- end ofmodel edit -->
+<?php foreach($anggota as $ag) : ?>
+    <div class="modal fade" id="edit<?= $ag->anggota_id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Anggota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- form tambah kategori -->
+                    <form action="<?= base_url('anggota/edit/' . $ag->anggota_id) ?>" method="post">
+                        <div class="form-group">
+                            <label>Nama Anggota</label>
+                            <input type="text" name="anggota_name" class="form-control" value="<?= $ag->anggota_name ?>">
+                            <?= form_error('anggota_name', '<div class="text-small text-danger">','</div>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombor Badan</label>
+                            <input type="text" name="no_body" class="form-control" value="<?= $ag->no_body ?>">
+                            <?= form_error('no_body', '<div class="text-small text-danger">','</div>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Emel Anggota</label>
+                            <input type="text" name="anggota_email" class="form-control" value="<?= $ag->anggota_email ?>">
+                            <?= form_error('anggota_email', '<div class="text-small text-danger">','</div>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombor Telefon</label>
+                            <input type="number" name="anggota_phoneNumber" class="form-control" value="<?= $ag->anggota_phoneNumber ?>">
+                            <?= form_error('anggota_phoneNumber', '<div class="text-small text-danger">','</div>'); ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Alamat Anggota</label>
+                            <input type="text" name="anggota_address" class="form-control" value="<?= $ag->anggota_address ?>">
+                            <?= form_error('anggota_address', '<div class="text-small text-danger">','</div>'); ?>
+                        </div>
+                        <div class="form-group" id="status-dropdown">
+                            <label>Jabatan</label>
+                            <select name="department_name" class="form-control">
+                            <?php foreach ($department_name as $department_name) : ?>
+                                <option value="<?= $department_name->department_name ?>"><?= $department_name->department_name ?></option>
+                            <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Kemaskini</button>
+                            <button type="reset" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Set Semula</button>
+                            <a href="<?= base_url('user/anggota') ?>" class="btn btn-dark btn-sm"> Tutup</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endforeach ?>
+    <!-- end of modal edit -->
 <!-- /.container-fluid -->
 
 <!-- Bootstrap core JavaScript -->
@@ -96,3 +152,7 @@
 
 
 <!-- End of Main Content -->
+
+
+
+             

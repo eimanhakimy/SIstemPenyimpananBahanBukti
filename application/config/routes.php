@@ -72,6 +72,8 @@ $route['anggota/edit/(:any)'] = 'user/editAnggota/$1';
 
 $route['bahanbukti/addBahanBukti'] = 'user/addBahanBukti';
 $route['bahanbukti/addBahanBukti_action'] = 'user/addBahanBukti_action';
+$route['bahanbukti/printBahanBukti'] = 'user/printBahanBukti';
+$route['bahanbukti/delete/(:any)'] = 'user/deleteBahanBukti/$1';
 
 //rack
 
@@ -85,6 +87,9 @@ $route['rack/printRack'] = 'user/printRack';
 //akaun staf
 $route['staff/addStaff'] = 'admin/addStaff';
 $route['staff/addStaff_action'] = 'admin/addStaff_action';
+$route['staff/printStaff'] = 'admin/printStaff';
+$route['staff/delete/(:any)'] = 'admin/deleteStaff/$1';
+
 
 
 
