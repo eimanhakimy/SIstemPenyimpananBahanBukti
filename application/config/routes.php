@@ -74,6 +74,7 @@ $route['bahanbukti/addBahanBukti'] = 'user/addBahanBukti';
 $route['bahanbukti/addBahanBukti_action'] = 'user/addBahanBukti_action';
 $route['bahanbukti/printBahanBukti'] = 'user/printBahanBukti';
 $route['bahanbukti/delete/(:any)'] = 'user/deleteBahanBukti/$1';
+$route['bahanbukti/edit/(:any)'] = 'user/editBahanBukti/$1';
 
 //rack
 

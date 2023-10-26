@@ -1,4 +1,42 @@
 
+<?php
+// Load the CodeIgniter database library
+$CI = &get_instance();
+$CI->load->database();
+
+// Perform a SQL query to count the records in the "evidences" table
+$query = $CI->db->select('COUNT(id) AS total_evidences')
+              ->from('evidences')
+              ->get();
+$row = $query->row();
+
+if ($row) {
+    $totalEvidences = $row->total_evidences;
+} else {
+    // Handle the error, e.g., display an error message
+    $totalEvidences = "Error";
+}
+?>
+
+<?php
+// Load the CodeIgniter database library
+$CI = &get_instance();
+$CI->load->database();
+
+// Perform a SQL query to count the records in the "evidences" table with status_message = 1
+$query = $CI->db->select('COUNT(id) AS total_evidences_status1')
+              ->from('evidences')
+              ->where('status_message', 0)
+              ->get();
+$row = $query->row();
+
+if ($row) {
+    $totalEvidencesStatus1 = $row->total_evidences_status1;
+} else {
+    // Handle the error, e.g., display an error message
+    $totalEvidencesStatus1 = "Error";
+}
+?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -8,23 +46,22 @@
 
                     <div class="row">
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                        Jumlah Barang Kes (Semua)</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalEvidences; ?></div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">

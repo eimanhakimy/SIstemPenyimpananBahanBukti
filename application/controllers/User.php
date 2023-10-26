@@ -248,6 +248,7 @@ class User extends CI_Controller
       $data['title'] = 'Penyimpanan Bahan Bukti';
       $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
       $data['evidences'] = $this->User_model->getBahanBuktiData('evidences')->result();
+      $data['status_messages'] = $this->User_model->get_status_messages();
 
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
@@ -263,6 +264,9 @@ class User extends CI_Controller
         'required' => '%s Wajib diisi !!'
       ));
       $this->form_validation->set_rules('case_no', 'Nombor Kes', 'required', array(
+        'required' => '%s Wajib diisi !!'
+      ));
+      $this->form_validation->set_rules('status_message', 'Status', 'required', array(
         'required' => '%s Wajib diisi !!'
       ));
     }
@@ -330,6 +334,13 @@ class User extends CI_Controller
         // Insert the data into the 'evidences' table
         $this->User_model->insert_dataBahanBukti($data, 'evidences');
 
+        // Get the email associated with the selected 'anggota_name' from the database
+        $recipientEmail = $this->User_model->getAnggotaEmail($this->input->post('anggota_name'));
+
+        // Send an email to the selected 'anggota_name'
+        $token = bin2hex(random_bytes(16)); // You can generate a token or use any other identifier
+        $this->_sendEmail($token, 'verify', $recipientEmail);
+
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
         <h4 class="alert-heading">Item Baru Berjaya Ditambah!</h4>
         <p>Item baru berjaya ditambah ke dalam sistem. Anda boleh lihat dalam table.</p>
@@ -339,6 +350,53 @@ class User extends CI_Controller
         redirect('user/bahanbukti');
     }
 }
+
+private function _sendEmail($token, $type, $recipientEmail)
+{
+  $config = Array(
+    'protocol' => 'smtp',
+    'smtp_host' => 'sandbox.smtp.mailtrap.io',
+    'smtp_port' => 2525,
+    'smtp_user' => '95736e39646a00',
+    'smtp_pass' => 'e3abb65c424280',
+    'crlf' => "\r\n",
+    'newline' => "\r\n"
+  );
+
+    $this->load->library('email', $config);
+
+    $this->email->from('example@gmail.com', 'Admin IPD Kedah');
+    $this->email->to($recipientEmail);
+
+    // Update the email subject based on the $type
+    if ($type == 'verify') {
+        $this->email->subject('Barang Kes Anda Berjaya Disimpan');
+    } elseif ($type == 'info') {
+        $this->email->subject('Maklumat Mengenai Barang Kes');
+    }
+
+    $message = 'Barang Kes anda sudah berjaya disimpan di dalam stor. Dibawah ini adalah maklumat berkenaan dengan barang kes anda:<br>';
+
+    // Fetch and append relevant information from the 'evidences' table based on your needs
+    $message .= 'Nama Anggota:' . $this->input->post('anggota_name') . '<br>';
+    $message .= 'No Kes: ' . $this->input->post('case_no') . '<br>';
+    $message .= 'Date: ' . $this->input->post('date') . '<br>';
+    $message .= 'Time Check In: ' . $this->input->post('time_check_in') . '<br>';
+    $message .= 'Status Message: ' . $this->input->post('status_message') . '<br>';
+    $message .= 'Lihat Gambar: <a href="' . base_url() . 'assets/img/barangkes/' . $this->input->post('image_url') . '">Klik di sini</a>';
+
+    // Add the message to the email
+    $this->email->message($message);
+
+    if ($this->email->send()) {
+        return true;
+    } else {
+        echo $this->email->print_debugger();
+        die;
+    }
+}
+
+
 
       public function printBahanBukti()
       {
@@ -359,7 +417,58 @@ class User extends CI_Controller
           redirect('user/bahanbukti');
       }
 
+//       public function editBahanBukti($id_bahanbukti)
+// {
+//     $data['title'] = 'Kemaskini Barang Kes';
+//     $this->_rulesBahanBukti();
 
+//     if ($this->form_validation->run() == FALSE) {
+//         $this->bahanbukti();
+//     } else {
+//         $data = array(
+//             'id' => $id_bahanbukti,
+//             'case_no' => $this->input->post('case_no'),
+//         );
+
+//         // Validate and convert the date format from 'dd/mm/yyyy' to 'yyyy-MM-dd'
+//         $date = $this->input->post('date');
+//         $date = DateTime::createFromFormat('d/m/Y', $date);
+//         if ($date) {
+//             $data['date'] = $date->format('Y-m-d');
+//         } else {
+//             // Handle an invalid date input (e.g., show an error message).
+//         }
+
+//         // Validate and convert the time_check_in format (if needed)
+//         $data['time_check_in'] = $this->input->post('time_check_in');
+
+//         // Validate and convert the date_out format (if needed)
+//         $dateOut = $this->input->post('date_out');
+//         $dateOut = DateTime::createFromFormat('d/m/Y', $dateOut);
+//         if ($dateOut) {
+//             $data['date_out'] = $dateOut->format('Y-m-d');
+//         } else {
+//             // Handle an invalid date_out input (e.g., show an error message).
+//         }
+
+//         // Validate and convert the time_check_out format (if needed)
+//         $data['time_check_out'] = $this->input->post('time_check_out');
+
+//         // Continue with status_message and database update
+//         $data['status_message'] = $this->input->post('status_message');
+
+//         $this->User_model->update_dataBahanBukti($data, 'evidences');
+//         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+//             <h4 class="alert-heading">Barang Kes Berjaya Dikemaskini!</h4>
+//             <p>Barang Kes berjaya diubah ke dalam sistem. Anda boleh lihat dalam table.</p>
+//             <hr>
+//             </div>');
+//         redirect('user/bahanbukti');
+//     }
+// }
+
+      
+      /// ANGGOTA 
     public function anggota()
     {
       $data['title'] = 'Senarai Anggota';

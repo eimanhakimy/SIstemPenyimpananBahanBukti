@@ -132,6 +132,25 @@ class User_model extends CI_Model {
         $this->db->delete($table);
     }
 
+    public function update_dataBahanBukti($data, $table)
+    {
+        $this->db->where('id',$data['id']);
+        $this->db->update($table, $data);
+    }
+
+    public function getAnggotaEmail($anggotaName) {
+        $this->db->select('anggota_email'); // Correct the column name to 'anggota_email'
+        $this->db->where('anggota_name', $anggotaName);
+        $query = $this->db->get('anggota_menu'); // Use the correct table name
+    
+        if ($query->num_rows() > 0) {
+            return $query->row()->anggota_email; // Correct the property name to 'anggota_email'
+        } else {
+            return null; // Handle the case where no email is found for the given 'anggota_name'
+        }
+    }
+    
+
     //Rack
     public function insert_dataRack($data, $table)
     {

@@ -7,8 +7,6 @@
         For more information about DataTables, please visit the <a target="_blank"
             href="https://datatables.net">official DataTables documentation</a>.</p>
 
-
-   <!-- form tambah kategori -->
 <form action="<?= base_url('bahanbukti/addBahanBukti_action') ?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label>Nama Barang Kes</label>
@@ -77,8 +75,6 @@
         <?php endforeach; ?>
     </select>
 </div>
-
-
     <div class="form-group">
 
     <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Tambah</button>

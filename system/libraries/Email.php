@@ -77,28 +77,28 @@ class CI_Email {
 	 *
 	 * @var	string
 	 */
-	public $smtp_host	= 'ssl://smtp.gmail.com';
+	public $smtp_host	= 'sandbox.smtp.mailtrap.io';
 
 	/**
 	 * SMTP Username
 	 *
 	 * @var	string
 	 */
-	public $smtp_user	= 'eimanhakimy83@gmail.com';
+	public $smtp_user	= '95736e39646a00';
 
 	/**
 	 * SMTP Password
 	 *
 	 * @var	string
 	 */
-	public $smtp_pass	= 'nifbyjqkuwyqrxgr';
+	public $smtp_pass	= 'e3abb65c424280';
 
 	/**
 	 * SMTP Server port
 	 *
 	 * @var	int
 	 */
-	public $smtp_port	= 465;
+	public $smtp_port	= 2525;
 
 	/**
 	 * SMTP connection timeout in seconds

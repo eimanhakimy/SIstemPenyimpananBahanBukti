@@ -29,6 +29,7 @@
                             <th>Berat (KG)</th>
                             <th>Tarikh Daftar</th>
                             <th>Masa Masuk</th>
+                            <th>Tarikh Keluar</th>
                             <th>Masa Keluar</th>
                             <th>Rak</th>
                             <th>Nama Anggota</th>
@@ -48,6 +49,7 @@
                                 <td><?= $evi->item_weight?></td>
                                 <td><?= $evi->date?></td>
                                 <td><?= $evi->time_check_in?></td>
+                                <td><?= $evi->date_out?></td>
                                 <td><?= $evi->time_check_out?></td>
                                 <td><?= $evi->rack?></td>
                                 <td><?= $evi->anggota_name?></td>
@@ -73,56 +75,57 @@
 
 
 <!-- modal untuk edit --->
-<?php foreach($anggota as $ag) : ?>
-    <div class="modal fade" id="edit<?= $ag->anggota_id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?php foreach($evidences as $evi) : ?>
+    <div class="modal fade" id="edit<?= $evi->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Anggota</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Kemaskini Barang Kes</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- form tambah kategori -->
-                    <form action="<?= base_url('anggota/edit/' . $ag->anggota_id) ?>" method="post">
+                    
+                    <form action="<?= base_url('bahanbukti/edit/' . $evi->id) ?>" method="post">
                         <div class="form-group">
-                            <label>Nama Anggota</label>
-                            <input type="text" name="anggota_name" class="form-control" value="<?= $ag->anggota_name ?>">
-                            <?= form_error('anggota_name', '<div class="text-small text-danger">','</div>'); ?>
+                            <label>Nombor Kes</label>
+                            <input type="text" name="case_no" class="form-control" value="<?= $evi->case_no ?>"readonly>
+                            <?= form_error('case_no', '<div class="text-small text-danger">','</div>'); ?>
                         </div>
                         <div class="form-group">
-                            <label>Nombor Badan</label>
-                            <input type="text" name="no_body" class="form-control" value="<?= $ag->no_body ?>">
-                            <?= form_error('no_body', '<div class="text-small text-danger">','</div>'); ?>
+                            <label>Tarikh</label>
+                            <input type="date" name="date" class="form-control" value="<?= date('Y-m-d', strtotime($evi->date)) ?>" readonly>
+                            <?= form_error('date', '<div class="text-small text-danger">', '</div>'); ?>
                         </div>
                         <div class="form-group">
-                            <label>Emel Anggota</label>
-                            <input type="text" name="anggota_email" class="form-control" value="<?= $ag->anggota_email ?>">
-                            <?= form_error('anggota_email', '<div class="text-small text-danger">','</div>'); ?>
+                            <label>Masa Check-In</label>
+                            <input type="time" name="time_check_in" class="form-control" value="<?= date('H:i:s'); ?>" readonly>
                         </div>
                         <div class="form-group">
-                            <label>Nombor Telefon</label>
-                            <input type="number" name="anggota_phoneNumber" class="form-control" value="<?= $ag->anggota_phoneNumber ?>">
-                            <?= form_error('anggota_phoneNumber', '<div class="text-small text-danger">','</div>'); ?>
+                            <label>Tarikh Keluar</label>
+                            <input type="date" name="date_out" class="form-control" value="<?= date('Y-m-d', strtotime($evi->date_out)) ?>" >
+                            <?= form_error('date_out', '<div class="text-small text-danger">', '</div>'); ?>
                         </div>
                         <div class="form-group">
-                            <label>Alamat Anggota</label>
-                            <input type="text" name="anggota_address" class="form-control" value="<?= $ag->anggota_address ?>">
-                            <?= form_error('anggota_address', '<div class="text-small text-danger">','</div>'); ?>
-                        </div>
+                            <label>Masa Check-out</label>
+                            <input type="time" name="time_check_out" class="form-control" value="<?= date('H:i:s'); ?>">
+                        </div>  
+
                         <div class="form-group" id="status-dropdown">
-                            <label>Jabatan</label>
-                            <select name="department_name" class="form-control">
-                            <?php foreach ($department_name as $department_name) : ?>
-                                <option value="<?= $department_name->department_name ?>"><?= $department_name->department_name ?></option>
+                            <label>Status</label>
+                            <select name="status_message" class="form-control">
+                            <?php foreach ($status_messages as $status_message) : ?>
+                                <option value="<?= $status_message->status_message ?>"><?= $status_message->status_message ?></option>
                             <?php endforeach; ?>
                             </select>
                         </div>
+
+                        
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Kemaskini</button>
                             <button type="reset" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Set Semula</button>
-                            <a href="<?= base_url('user/anggota') ?>" class="btn btn-dark btn-sm"> Tutup</a>
+                            <a href="<?= base_url('user/bahanbukti') ?>" class="btn btn-dark btn-sm"> Tutup</a>
                         </div>
                     </form>
                 </div>
